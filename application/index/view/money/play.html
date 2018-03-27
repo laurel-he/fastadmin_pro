@@ -1,0 +1,417 @@
+{include file="common/head" /}
+<style>
+	.play{
+		margin-top:50px; 
+	}
+	footer .mui-row div{
+		padding: 10px !important;
+		background: white !important;
+		border-top:1px solid gray; 
+	}
+	footer input{
+		border-radius:20px !important;
+		background:#F2F0F1 !important;
+		margin-bottom:0 !important;
+		color:black;
+		text-indent: 4em;   
+		font-size: 18px;
+	}
+	footer p{
+    position: absolute;
+    top: 19px;
+    left: 26px;
+    color: black;
+    font-size: 16px;
+   }
+   .play .images{
+   		padding: 30px 40px 20px 40px;
+   		height: 200px;
+   }
+   .play .images div{
+   		position: relative;
+   		height: 200px;
+   		background-size:100%;
+		/*background-repeat:no-repeat;*/
+		line-height: 350px;
+		padding:0 15px;
+		box-sizing: border-box; 
+   }
+   .demo{
+   	text-align: center;
+   	margin-top:50px; 
+   }
+   .name{
+   	border:none !important;
+   }
+   .icon-fenxiang{
+   	position: absolute;
+   	top:0;
+   	right:12px;
+   	height: 20px;
+   }
+	.video{
+		width: 90%;
+		margin-top: -100px;
+	}
+	/* 进度条 */
+	.range {
+		width: 80%;
+		height: 2px;
+		background: -webkit-linear-gradient(#61bd12, #61bd12) no-repeat, red;
+		border-radius: 0.25rem;
+		-webkit-appearance: none !important;
+		/* left: 6rem; */
+		text-align: center;
+	}
+	/* 进度滑块 */
+	.range::-webkit-slider-thumb {
+		width: 0.5rem;
+		height: 0.5rem;
+		background: -webkit-linear-gradient(#61bd12, #61bd12) no-repeat, #ddd;
+		border: 1px solid #f18900;
+		cursor: pointer;
+		border-radius: 0.25rem;
+		-webkit-appearance: none !important;
+	}
+	#musicAudioPlayAndPause{
+		/*line-height: 50px;*/
+		width:40px;
+		height:40px;
+		margin:5px 5px;
+	}
+	#musicAudioTime{
+		margin:5px 5px;
+	}
+	#musicAudioProgress,#musicAudioProgressPar{
+		height:25px;
+		-webkit-border-radius: 10px;
+	}
+	#musicAudioProgressPar{
+		width: 90%;
+		background-color: #F0FFFF;
+		height: 2px;
+	}
+	#musicAudioProgress{
+		height: 2px;
+		margin-top: -26px;
+		background-color: #F2546C;
+		margin-left: -324px;
+	}
+	.zanting
+	{
+		font-size: 60px;
+		position: relative;
+	}
+	.front
+	{
+		font-size: 32px;
+		font-size: 32px;
+	}
+	.next
+	{
+		font-size: 32px;
+		font-size: 32px;
+	}
+	.cur
+	{
+		float: left;
+		margin-left:36px; 
+	}
+	.max
+	{
+		float: right;
+		margin-right:36px; 
+	}
+	.mui-content {
+		background-color: white;
+	}
+	.icon-icon-{
+		font-size: 65px !important;
+	}
+	input[type=range] {
+		-webkit-appearance: none;/*清除系统默认样式*/
+		width: 90%;
+		background: -webkit-linear-gradient(#EF5670, #EF5670) no-repeat, #ddd;/*设置左边颜色为#61bd12，右边颜色为#ddd*/
+		background-size: 1% 99%;/*设置左右宽度比例*/
+		height: 3px;/*横条的高度*/
+	}
+	/*拖动块的样式*/
+	input[type=range]::-webkit-slider-thumb {
+		-webkit-appearance: none;/*清除系统默认样式*/
+		height: 16px;/*拖动块高度*/
+		width: 16px;/*拖动块宽度*/
+		background: #fff;/*拖动块背景*/
+		border-radius: 50%; /*外观设置为圆形*/
+		border: solid 1px #ddd; /*设置边框*/
+	}
+</style>
+<body>
+<!-- 头部标题 -->
+	<header class="mui-content">
+		<div class="mui-row">
+	        <div class="mui-col-xs-2">
+	            <i class="iconfont icon-i-left"></i>
+	        </div>
+	        <div class="mui-col-xs-8">
+	            课程名称
+	        </div>
+	        <div class="mui-col-xs-2">
+	            
+	        </div>
+    	</div>
+	</header>
+<!-- 头部结束 -->
+<!-- 播放区 -->
+	<div class="play">
+		<!-- 讲师 -->
+		<div class="mui-content lecturer">
+			<div class="mui-row">
+		        <div class="mui-col-xs-12 name">
+		        	<img align="middle" src="/uploads/20180323/e59a041953ebeaacdce51f5547116f2c.jpg" alt="">
+		        	<span>张老师</span>
+		        	<span>+ 关注</span>
+		        </div>		   
+	    	</div>
+		</div>
+		{volist name="n_num" id="nu"}
+		{if condition="$nu.re_type==2"}
+		<div class="images">
+			<div style="background-image:url({$nu.baimage})">
+				<i class="iconfont icon-weibiao45146"></i>
+				<span class="collect-num">888</span>
+				<i class="iconfont icon-fenxiang collect-num"></i>
+			</div>
+		</div>
+		{/if}
+		<div class="demo">
+
+			{switch name="nu.re_type"}
+			{case value="0"}
+			<video class="video" poster="{$nu.baimage}" width="618" height="347" controls="true" controlslist="nodownload" preload>
+				<source src="{$nu.souce_route}" media="only screen and (max-device-width: 568px)"></source>
+			</video>
+			{/case}
+			{case value="1"}
+			<img src="{$nu.souce_route}" alt="">
+			{/case}
+			{case value="2"}
+			<p style="text-align: center;height: 10px;">
+				<input type="range" min=0 max=100 class='range' value=0>
+			</p>
+			<p>
+				<span class='cur'></span><span class='max'></span>
+			</p>
+			<audio src="{$nu.souce_route}" id='ao' ></audio>
+			<div class="mui-content" style="height: 80px;margin-top:40px;">
+				<div class="mui-row" style="height: 60px;">
+					<div class="mui-col-xs-4" style="height: 60px;line-height: 60px;">
+						<i class="iconfont icon-shangyiqu101 front" style="float: right;color: red;"></i>
+					</div>
+					<div class="mui-col-xs-4" style="height: 60px;line-height: 60px;text-align:center">
+						<i id="musicAudioPlayAndPause" class="iconfont icon-icon- zanting plays" style="text-align:center;color: red;" onclick="playOrPaused(this);"></i>
+					</div>
+					<div class="mui-col-xs-4" style="height: 60px;line-height: 60px;">
+						<i class="iconfont icon-xiayiqu101 next" style="float: left;color: red;"></i>
+					</div>
+				</div>
+			</div>
+
+			{/case}
+			{default /}
+				<p>暂时没有可播放文件</p>
+			{/switch}
+
+			{/volist}
+		</div>
+	</div>
+<!-- 隐藏导航 -->
+	<div class="mui-content nav roll">
+		<div class="mui-row">
+	        <div class="mui-col-xs-4">
+	           <li class="action">课程介绍</li>
+	        </div>
+			<div class="mui-col-xs-4">
+				<li>课程目录</li>
+			</div>
+	        <div class="mui-col-xs-4">
+	            <li>课程评价</li>
+	        </div>
+    	</div>
+	</div>
+<!-- 导航 -->
+	<div class="mui-content nav">
+		<div class="mui-row">
+	        <div class="mui-col-xs-4">
+	           <li class="action">课程介绍</li>
+	        </div>
+			<div class="mui-col-xs-4">
+				<li>课程目录</li>
+			</div>
+	        <div class="mui-col-xs-4">
+	            <li>课程评价</li>
+	        </div>
+    	</div>
+	</div>
+<!-- 课程 -->
+	<div class="class">
+		<!-- 价格 -->
+		<div class="mui-content price">
+			<div class="mui-row">
+		        <div class="mui-col-xs-12 price-num">
+		        	<span class="sale">￥</span><span class="sale">9.99</span>
+		        	<span>限时免费</span>
+		        </div>
+		        <div class="mui-col-xs-12 price-no">
+		        	<span>已更新课程</span><span>22</span><span>节</span>
+		        </div>
+		        <div class="mui-col-xs-12 price-no">
+		        	<i class="iconfont icon-gouhao"></i>
+		        	<span>永久回听</span>
+		        </div>
+	    	</div>
+		</div>
+		<!-- 讲师 -->
+		<!-- 课程介绍 -->
+		<div class="mui-content introduce">
+			<div class="mui-row">
+		        <div class="mui-col-xs-12 headline">
+		        	<span>课程简介</span>
+		        </div>
+		        <div class="mui-col-xs-12">
+		        	<li>	
+						<p><span>1</span>.课程适用人群:</p>
+						<p>{$list.suit}</p>
+		        	</li>
+		        	<li>	
+						<p><span>2</span>.主要讲解</p>
+						<p>{$list.intro}</p>
+		        	</li>
+		        </div>		   
+	    	</div>
+		</div>
+	</div>
+<!-- 课程介绍结束 -->
+<div class="catalog">
+	{if condition="$num"}
+	{volist name="num" id="v" key="ke"}
+	{if condition="$ke<=2"}
+	<a href="play?id={$id}&d_id={$v.id}">
+		<div class="mui-content cat-list">
+			<div class="mui-row">
+				<div class="mui-col-xs-4">
+					<img class="cat-img" src="{$v.baimage}" alt="">
+				</div>
+				<div class="mui-col-xs-6">
+					<p>{$v.name}</p>
+					<p>
+						<span>{$v.learntimes}</span><span>次学习</span>
+					</p>
+					<p>
+						<span>{$v.creat_time}</span>
+					</p>
+				</div>
+				<div class="mui-col-xs-2">
+					可试听
+				</div>
+			</div>
+		</div>
+		</a>
+			{else/}
+			<div class="mui-content cat-list">
+				<div class="mui-row">
+					<div class="mui-col-xs-4">
+						<img class="cat-img" src="{$v.baimage}" alt="">
+					</div>
+					<div class="mui-col-xs-6">
+						<p>{$v.name}</p>
+						<p>
+							<span>{$v.learntimes}</span><span>次学习</span>
+						</p>
+						<p>
+							<span>{$v.creat_time}</span>
+						</p>
+					</div>
+					<div class="mui-col-xs-2">
+						<i class="iconfont icon-iconset0114"></i>
+					</div>
+				</div>
+			</div>
+			{/if}
+			{/volist}
+			{else/}
+			<div style="text-align: center;padding:15px 0;">
+				该系列还没有课程，敬请期待！
+			</div>
+			{/if}
+</div>
+<!-- 课程评论 -->
+	<div class="comment">
+		<div class="comment-num">
+			<span>课程评价 (<span class="c-num"> 99+</span>)</span>					
+		</div>
+		<div class="mui-content">
+			<div class="mui-row">
+		        <div class="mui-col-xs-3 c-img">
+		           <img src="/assets/front/img/header.jpg" alt="">
+		        </div>
+		        <div class="mui-col-xs-9">
+		            <p>小张</p>
+		            <p>
+		            	<span>03-23 12:12:12</span>
+		            </p>
+		            <p>厉害</p>		           
+		        </div>		     
+	    	</div>
+		</div>
+	</div>
+<!-- 课程评论结束 -->
+<!-- 底部 -->
+	<footer class="mui-content">
+		<div class="mui-row">
+	        <div class="mui-col-xs-12">
+	        	<input type="text" placeholder="评头论足">
+	        	<p>发表评论</p>
+	        </div>	      	   
+	    </div>
+	</footer>
+<!-- 支付 -->
+	<div id="pay">
+		<div id="pay-sure">
+			<div>
+				<span>恭喜你，付费成功，可学习全部课程！</span>
+				<p></p>
+			</div>
+		</div>
+		<ul class="sure">
+			<li class="price-now">
+				<span>系列价格</span>
+				<span>9.90</span>
+				<span>￥</span>				
+			</li>
+			<li class="price-n">
+				<span>优惠券抵价</span>
+				<select name="price" id="price">
+					<option value="-￥9.90">-￥9.90</option>
+					<option value="-￥9.90">-￥9.90</option>
+					<option value="-￥9.90">-￥9.90</option>
+				</select>
+			</li>
+			<li class="pay-true">
+				<span>还需支付</span>
+				<span>0.00</span>
+				<span>￥</span>
+			</li>
+			<li>
+				<p class="pay-way">
+					<span>支付</span>
+					<span>￥0.00</span>
+				</p>
+				<p class="cancel">取消</p>
+			</li>
+		</ul>
+	</div>
+</body>
+<script type="text/javascript" src="{$Think.PUBLIC_FRONT}/js/money/play.js"></script>
+<script type="text/javascript" src="{$Think.PUBLIC_FRONT}/js/money/details.js"></script>
+<script type="text/javascript" src="{$Think.PUBLIC_FRONT}/js/common/comment.js"></script>
+</html>

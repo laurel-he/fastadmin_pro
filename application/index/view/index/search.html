@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+    <meta HTTP-EQUIV="expires" CONTENT="0">
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no" media="screen" />
+    <title>搜索页面</title>
+    <link rel="stylesheet" href="{$Think.PUBLIC_FRONT}/css/index/search.css">
+    <link href="{$Think.PUBLIC_FRONT}/css/index/layui.css"  rel="stylesheet">
+    <link href="{$Think.PUBLIC_FRONT}/css/index/iconfont.css" rel="stylesheet" />
+    <link href="{$Think.PUBLIC_FRONT}/css/common/mui.min.css" rel="stylesheet" />
+    <link href="{$Think.PUBLIC_FRONT}/css/common/mui.css" rel="stylesheet" />
+    <link href="{$Think.PUBLIC_FRONT}/css/common/iconfont.css" rel="stylesheet" />
+    <script type="text/javascript" src="{$Think.PUBLIC_FRONT}/js/common/jquery.js"></script>
+</head>
+    <style>
+        *{
+            font-family: '微软雅黑';
+        }
+        #data{
+            color: #999 !important;
+        }       
+        .border_div{
+            width: 75%;
+            margin: 5px auto;
+            height: 25px;
+            text-align: center;
+            line-height: 22px;
+            border-radius: 3px;
+            border: 1px solid #999;
+        }
+        .seach_span{
+            padding: 10px 10px 30px 10px;
+        }
+        .shistory li{
+            text-decoration: underline;
+            float: left;
+            margin-left: 10px;
+            line-height: 25px;
+        }
+        .change_div div{
+            padding: 10px;
+        }
+        .seach_span ul li{
+            font-size: 14px;
+        }
+        .mui-row span{
+            font-size: 14px;
+        }
+        .search
+        {
+            float: right;
+            position: relative;
+            right: -1px;
+            top: -55px;
+            width: 64px;
+            background-color: #F35536;
+            height: 40px;
+        }
+        .action{
+            color: white !important;
+            font-weight: bolder;
+            border-bottom:2px solid white;
+        }
+        .nav div{
+            color: #333;
+        }
+        .list ul li{
+            padding:10px 15px;
+            font-size: 16px;
+            color: #999;
+        }
+        .list ul li:first-child{
+            padding:20px 15px 10px 15px;
+        }
+        .list a{
+            color: #A699B3;
+        }
+        .list ul li:first-child span:first-child{
+            color: #F35556;
+        }
+        .list ul li:last-child {
+            color: #F35556;
+            background: #F3F3F3;
+            text-align: center;
+        }
+        .list ul li:nth-child(2) span:first-child{
+            color: #F4AB64;
+        }
+        .list ul li:nth-child(3) span:first-child{
+            color: #F355C5;
+        }
+        .list{
+            height: 78%;
+            width: 100%;
+            overflow-y:auto;
+            /*			 	border: 1px solid gray;*/
+        }
+        #data{
+            position: fixed;
+            top: 47px;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            background: rgba(0,0,0,0.7);
+        }
+        #data .seach_span,.change_div{
+            background: white;
+        }
+        .list span:last-child{
+            float: right;
+            margin-right: 15px;
+        }
+        .change_div div:first-child i{
+            color: #F35556;
+        }
+        .change_div div:nth-child(2) i{
+            color: #F4AB64;
+        }
+        .change_div div:nth-child(3) i{
+            color: #F355C5;
+        }
+        .change_div div{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .change_div a{
+            color: #999;
+        }
+        .shistory a{
+            color: #999;
+            padding: 5px;
+        }
+        .icon-xiangzuo{
+            font-size: 24px;
+        }
+        .qx{
+           position: absolute;
+            right:0px;
+            top: 7px;
+            color: #333;
+            width: 28px;
+            height: 40px;
+            line-height: 40px;
+            background: #fff;
+            border-top-right-radius:3px; 
+            border-bottom-right-radius:3px;
+            border: 1px solid rgba(0, 0, 0, .2);
+            display: none;
+        }
+        .find{
+            position: absolute;
+            left: -8px;
+            top: 7px;
+            color: #333;
+            width: 50px;
+            height: 40px;
+            line-height: 40px;
+            background: #fff;
+            border-top-left-radius:3px; 
+            border-bottom-left-radius:3px;
+            border: 1px solid rgba(0, 0, 0, .2);
+        }
+    </style>
+
+<body onload="GetTextCookie()">
+<header class="mui-row" style="height: 21%;">
+    <div class="mui-col-xs-2 back"><i class="iconfont icon-xiangzuo"></i></div>
+    <div class="mui-col-xs-8 title">
+        <input type="text" placeholder="请输入关键字搜索" id="input_id1" style="padding: 0px;color: black;text-indent:3em;">
+        <div class="find">
+            <i class="iconfont icon-search" onclick="AddTextCookie()" style="font-size: 22px;"></i>
+        </div>
+        <div class="qx">
+            X
+        </div>
+       <!--  <button type="button" onclick="AddTextCookie()" class="search">搜索</button> -->
+    </div>
+    <div class="mui-col-xs-2 cancel" style="font-size: 16px;">取消</div>
+    <div class="mui-col-xs-12 mui-row nav" style="font-size: 16px;margin-top:0px">
+        <div class="mui-col-xs-4 mui_row_div action" page="1">老师</div>
+        <div class="mui-col-xs-4 mui_row_div" page="1">系列</div>
+        <div class="mui-col-xs-4 mui_row_div" page="1">课程</div>
+    </div>
+    <div class="mui-col-xs-12 font3" style="background:#F3F3F3;margin-top:2px; ">当前选择分类:<span class="sel" style="font-size: 16px;">直播</span></div>
+</header>
+<div class="list">
+    <ul>
+        <li>1.<span>港澳资讯收评</span><span>666次</span></li>
+        <li>2.<span>港澳资讯收评</span><span>666次</span></li>
+        <li>3.<span>港澳资讯收评</span><span>666次</span></li>
+        <li>4.<span>港澳资讯收评</span><span>666次</span></li>
+        <li id="more">小二，再来点</li>
+    </ul>
+</div>
+<div id="data" class="mui-row">
+    <div class="mui-col-xs-12 mui-row" style="background:#F3F3F3 !important;">
+        <div class="mui-col-xs-3 mui_row_div font3">历史搜索</div>
+        <div class="mui-col-xs-6 mui_row_div"></div>
+        <div class="mui-col-xs-3 mui_row_div">
+            <div class="border_div font3" onclick="DelTextCookie()">清空记录</div></div>
+    </div>
+
+    <div class="mui-col-xs-12 seach_span" style="padding: 10px 10px 30px 10px;">
+        <ul class="shistory" style="overflow:hidden;">
+        </ul>
+    </div>
+
+    <div class="mui-col-xs-12 mui-row" style="background:#F3F3F3 !important;">
+        <div class="mui-col-xs-3 mui_row_div font3">热门搜索</div>
+        <div class="mui-col-xs-6 mui_row_div"></div>
+        <div class="mui-col-xs-3 mui_row_div">
+            <div class="border_div font3" page='1' id="huan">换一批</div>
+        </div>
+    </div>
+    <div class="mui-col-xs-12  mui-row change_div">
+        <div class="mui-col-xs-4 ">
+            <i class="iconfont icon-number1"> </i>
+            <span type="0">中信证券</span>
+        </div>
+        <div class="mui-col-xs-4 ">
+            <i class="iconfont icon-number2"> </i>
+            <span type="0">中信证券</span>
+        </div>
+        <div class="mui-col-xs-4 ">
+            <i class="iconfont icon-number3"> </i>
+            <span type="0">中信证券</span>
+        </div>
+        <div class="mui-col-xs-4 ">
+            <i class="iconfont icon-number4"> </i>
+            <span type="0">中信证券</span>
+        </div>
+        <div class="mui-col-xs-4 ">
+            <i class="iconfont icon-number5"> </i>
+            <span type="0">中信证券</span>
+        </div>
+        <div class="mui-col-xs-4 ">
+            <i class="iconfont icon-number6"> </i>
+            <span type="0">中信证券</span>
+        </div>
+         <div class="mui-col-xs-4 ">
+            <i class="iconfont icon-number7"> </i>
+            <span type="0">中信证券</span>
+        </div>
+        <div class="mui-col-xs-4 ">
+            <i class="iconfont icon-number8"> </i>
+            <span type="0">中信证券</span>
+        </div>
+        <div class="mui-col-xs-4 ">
+            <i class="iconfont icon-number9"> </i>
+            <span type="0">中信证券</span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="{$Think.PUBLIC_FRONT}/js/common/layui.all.js"></script>
+<script>
+    //换一批
+    $('#huan').on('touchstart',function(){
+        var page=$(this).attr('page');
+        var r=pag(++page,9);
+        if(r==1){
+            $(this).attr('page',page);
+        }
+        else{
+            $(this).attr('page',1);
+            pag(1,9);
+        }
+    });
+    var re='';
+    //加载更多
+    $('#more').click(function(){
+        var index=$('.nav .action').index();//索引
+        var page=$('.nav .action').attr('page');//分页
+        var r=pag(++page,index);
+        if(r==1){
+            $('.nav .action').attr('page',page);
+        }
+        else{
+            $('#more').text('客官，就这些了！');
+        }
+    });
+    //导航选择
+    $('.nav div').on('touchstart',function(){
+        $(this).attr('page',1);//将页码设置为1
+        $(this).siblings().removeClass('action');//去除其他选中
+        $(this).addClass('action');//添加选中
+        $('.sel').text($(this).text());//改变提示
+        $('#more').siblings().remove();//去除已有展示
+        var index=$(this).index();//索引
+        var page=$(this).attr('page');//分页
+        var r=pag(page,index);
+        if(r){
+            $('.nav .action').attr('page',page);
+            $('#more').text('小二，再来点');
+        }
+        else{
+            $('#more').text('新大陆，还没有人探索过！');
+        }
+    });
+    // 分页方法
+    function pag(page,type){
+        $.ajax({
+            url:'page',
+            data:{page:page,type:type},
+            type:'post',
+            async:false,
+            dataType:'json',
+            success:function(res){
+                if(res){
+                    if(type==9){
+                        $('.change_div').html('');
+                        $('.change_div').append(res);
+                    }
+                    else{
+                        $('#more').before(res);
+                    }
+                    re=1;
+                }
+                else{
+                    re=2;
+                }
+            }
+        });
+        return re;
+    }
+    //搜索
+    $('#input_id1').focus(function(){
+        $('#data').show();
+        $('.qx').show();
+        $(this).css('width','80%');
+        $(this).css('text-indent','1em');
+        GetTextCookie();
+    });
+    //取消按钮search
+    $('.cancel').on('touchstart',function(){
+        $('#data').hide();
+        $('#input_id1').val('');
+         $('#input_id1').css('width','100%');
+        $('#input_id1').css('text-indent','3em');
+        $('.qx').hide();
+    });
+    //清空search按钮
+    $('.qx').click(function(){
+        $('#input_id1').trigger("focus"); 
+        $('#input_id1').val('');    
+    });
+    //搜索按钮
+    $('.search').on('touchstart',function(){
+        $('#data').hide();
+        var val=$('#input_id1').val();
+        if(val){
+            $.ajax({
+                url:'find',
+                data:{val:val,type:$('.action').index()},
+                type:'post',
+                dataType:'json',
+                success:function(res){
+                }
+            });
+            switch($('.action').index()){
+                case 0:window.location.href='/index/live/index?val='+val+'&type=3';
+                    break;
+                case 1:window.location.href='/index/stock/index?val='+val+'&index=1&type=4';
+                    break;
+                case 2:window.location.href='/index/stock/index?val='+val+'&index=2&type=4';
+                    break;
+                case 3:window.location.href='/index/magnate/bigshot?val='+val;
+                    break;
+                case 4:window.location.href='/index/magnate/index?val='+val+'&type=6';
+                    break;
+                case 5:window.location.href='/index/stock/index?val='+val+'&index=0&type=4';
+                    break;
+            }
+        }
+        else{
+            var layer = layui.layer
+                ,form = layui.form;
+            layer.msg('客官，您还没输入搜素内容呢！');
+        }
+    });
+    //选择自己的历史查询
+    function sel(obj){
+        var sel=$(obj).text();
+        $('#input_id1').val(sel);
+        $('.search').click();
+    }
+    //返回按钮
+    $('.back').on('touchstart',function(){
+        window.history.go(-1);
+    });
+    //判断cookie中是否已有该数据
+    function chkcookies(NameOfCookie)
+    {
+        var c = document.cookie.indexOf(NameOfCookie+"=");
+        if( (c == "undefined")||(c == 'undefined')|| (typeof(c) == "undefined"))
+        {
+            return false;
+        }
+        return true;
+    }
+    //删除cookie
+    function delCookie(NameOfCookie)//删除cookie
+    {
+        document.cookie = NameOfCookie+"=;";
+    }
+    //添加cookie
+    function addCookie(NameOfCookie,objValue,expiredays)
+    {
+        var oldCookie = getCookie(NameOfCookie);
+        var val=oldCookie.split('|');
+        if(val.indexOf(objValue)==-1 || oldCookie==''){
+            // var tmp = typeof(oldCookie);
+            // console.log(oldCookie);
+            //需要设置过期时长，否则关闭浏览器就会清除cookie
+            var exp = new Date();
+            exp.setTime(exp.getTime() + expiredays*24*60*60*1000);
+            var expires = "expires="+exp.toUTCString();
+            //alert(expires);
+            if( (oldCookie == "undefined")||(oldCookie == 'undefined')|| (typeof(oldCookie) == "undefined"))
+            {
+                document.cookie = NameOfCookie+"="+objValue +";"+ expires;
+            }
+            else
+            {
+                document.cookie = NameOfCookie+"="+oldCookie+"|"+objValue +";"+ expires;
+            }
+        }
+    }
+    //取出cookie中的数据
+    function getCookie(NameOfCookie)
+    {
+        var arrStr = document.cookie.split("; ");
+        for(var i = 0;i < arrStr.length;i ++){
+            var temp = arrStr[i].split("=");
+            if(temp[0] == NameOfCookie)
+                return unescape(temp[1]);
+        }
+        return "";
+    }
+
+    function AddTextCookie()
+    {
+        var data = document.getElementById("input_id1").value;
+        if(data){
+            data+=','+$('.action').index();
+            addCookie("MY_Test_Text_Cookie",data,10);
+        }
+    }
+
+    function GetTextCookie()
+    {
+        var arr=getCookie("MY_Test_Text_Cookie").split('|');
+        var type='';
+        if(arr[1]){
+            var find='|';
+            for(var i = 0;i <arr.length;i ++){
+                if(arr[i]){
+                    type=arr[i].split(',')[1];
+                    switch(parseInt(type)){
+                        case 0:find+='<span type="0">'+arr[i].split(',')[0]+'</span>|';
+                            break;
+                        case 1:find+='<span type="1">'+arr[i].split(',')[0]+'</span>|';
+                            break;
+                        case 2:find+='<span type="2">'+arr[i].split(',')[0]+'</span>|';
+                            break;
+                        case 3:find+='<span type="3">'+arr[i].split(',')[0]+'</span>|';
+                            break;
+                        case 4:find+='<span type="4">'+arr[i].split(',')[0]+'</span>|';
+                            break;
+                        case 5:find+='<span type="5">'+arr[i].split(',')[0]+'</span>|';
+                            break;
+                    }
+                }
+            }
+            $('.shistory').html('');
+            $('.shistory').append('<li style="word-break:break-all">'+find+'</li>');
+        }
+    }
+
+    function DelTextCookie()
+    {
+        delCookie("MY_Test_Text_Cookie");
+        $('.shistory').html('');
+    }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="stylesheet" href="{$Think.PUBLIC_FRONT}/css/common/mui.css">
+        <link rel="stylesheet" href="{$Think.PUBLIC_FRONT}/css/common/iconfont.css">
+        <link rel="stylesheet" href="{$Think.PUBLIC_FRONT}/css/index/index.css">
+        <script src="{$Think.PUBLIC_FRONT}/js/common/mui.min.js"></script>
+        <script src="{$Think.PUBLIC_FRONT}/js/common/jquery.js"></script>
+        <title>菠菜首页</title>
+
+    </head>
+
+    <body>
+        <header>
+            <div class="mui-input-row">
+                <i class="iconfont icon-sousuo my-search"></i>
+                <a href="/index/index/search">
+                    <input type="search" class="mui-input-clear whiteBg" placeholder="搜索">
+                </a>
+            </div>
+        </header>
+        <div id="slider" class="mui-slider" >
+            <div class="mui-slider-group mui-slider-loop">
+                <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+                <div class="mui-slider-item mui-slider-item-duplicate">
+                    <a href="#">
+                        <img src="{:end($fimg)}">
+                    </a>
+                </div>
+                <!-- 第一张 -->
+                {volist name="fimg" id="img"}
+                <div class="mui-slider-item">
+                    <a href="#">
+                        <img src="{$img}">
+                    </a>
+                </div>
+                {/volist}
+                <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+                <div class="mui-slider-item mui-slider-item-duplicate">
+                    <a href="#">
+                        <img src="{$fimg[0]}">
+                    </a>
+                </div>
+            </div>
+            <div class="mui-slider-indicator">
+                <div class="mui-indicator mui-active"></div>
+                <div class="mui-indicator"></div>
+                <div class="mui-indicator"></div>
+                <div class="mui-indicator"></div>
+            </div>
+        </div>
+
+    <div class="ul-button">
+        <ul class="ban-button ban1">
+            {volist name="types" id="type" offset="0" length="5"}
+            <a href="index/money/index?id={$type.id}">
+                <li>{$type.name}</li>
+            </a>
+            {/volist}
+        </ul>
+        <ul class="ban-button ban2">
+            {volist name="types" id="type1" offset="5" length="5"}
+            <a href="index/money/index?id={$type1.id}">
+                <li>{$type1.name}</li>
+            </a>
+            {/volist}
+        </ul>
+    </div>
+    <div style="padding-top: 44px">
+        <div class="hr"></div>
+        <p class="sug-h mui-col-sm-6 mui-col-xs-9">{$hot['name']}</p>
+        <button class="mui-btn mui-btn-outlined change-btn" value="0" page="1"><i></i>换一批</button>
+        <div class="sug-card">
+            {volist name="hot.list" id="va"}
+            <div>
+                <div class="mui-card">
+                    <!--页眉，放置标题-->
+                        <a href="/index/money/details?id={$va.id}"><div class="mui-card-header mui-card-media" style="height: 150px;background-image:url({$va.fronimage})"></div></a>
+                        <div class="smal-avatar">
+                            <img class="img-avatar" src="{$va.avatar}" alt="">
+                            <span class="sug-te">{$va.teach}</span>
+                        </div>
+                    <a href="/index/money/details?id={$va.id}"><p class="sug-title">{$va.name}</p></a>
+                    <p>{$va.hits}次学习</p>
+                </div>
+            </div>
+            {/volist}            
+        </div>
+    </div>
+    <div class="hr"></div>
+    <div style="margin-bottom:50px; ">
+        <p class="sug-h mui-col-sm-6 mui-col-xs-9">{$free['name']}</p>
+        <button class="mui-btn mui-btn-outlined change-btn" value="1" page="1" id="free">换一批</button>
+        {volist name="free.list" id="val"}
+        <div style="padding: 2px 10px;" class="free">
+            <div class="mui-row set_list">
+                <div class="mui-col-xs-5">
+                    <a href="/index/money/details?id={$val.id}">
+                    <img src="{$val.fronimage}" alt="" >
+                    </a>
+                </div>                  
+                <div class="mui-col-xs-7 mui-row " style="padding-left: 10px;font-size: 16px;">
+                    <div class="mui-col-xs-12" style="height: 60px;">
+                        <a href="/index/money/details?id={$val.id}"><p class="content_p">{$val.name}</p></a>
+                        <span class="font1">{$val.teach} |</span>&nbsp<span class="font1">共{$val.num}节课</span>
+                    </div>
+                    <div class="mui-col-xs-6 content_div" >
+                        <span  class="font2">{$val.hits}次学习</span>
+                    </div>
+                    <div class="mui-col-xs-6 content_div" style="text-align: right;">
+                        <span class="font2"><s>{$val.old}</s></span>
+                        <span class="font2" style="color: red">￥{$val.now}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {/volist}
+    </div>
+    <footer>
+        <div class="mui-btn mui-btn-outlined big-button action">主页</div>
+        <div class="mui-btn mui-btn-outlined big-button" style="border-right: none">我的</div>
+    </footer>
+</body>
+    <script src="{$Think.PUBLIC_FRONT}/js/index/index.js"></script>
+</html>

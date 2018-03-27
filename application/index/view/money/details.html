@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+	<meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+	<meta HTTP-EQUIV="expires" CONTENT="0">
+	<meta name="apple-touch-fullscreen" content="yes" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no" media="screen" />
+	<title>{$list.name}详情</title>
+	<link rel="stylesheet" href="{$Think.PUBLIC_FRONT}/css/money/details.css">
+	<link href="{$Think.PUBLIC_FRONT}/css/common/mui.min.css" rel="stylesheet" />
+	<link href="{$Think.PUBLIC_FRONT}/css/common/mui.css" rel="stylesheet" />
+	<link href="{$Think.PUBLIC_FRONT}/css/common/iconfont.css" rel="stylesheet" />
+	<script type="text/javascript" src="{$Think.PUBLIC_FRONT}/js/common/jquery.js"></script>
+</head>
+<body>
+<!-- 头部标题 -->
+	<header class="mui-content">
+		<div class="mui-row">
+	        <div class="mui-col-xs-2">
+	            <i class="iconfont icon-i-left"></i>
+	        </div>
+	        <div class="mui-col-xs-8">
+	            {$list.name}
+	        </div>
+	        <div class="mui-col-xs-2">
+	            
+	        </div>
+    	</div>
+	</header>
+<!-- 头部结束 -->
+<!-- 隐藏导航 -->
+	<div class="mui-content nav roll">
+		<div class="mui-row">
+	        <div class="mui-col-xs-4">
+	           <li class="action">课程介绍</li>
+	        </div>
+	        <div class="mui-col-xs-4">
+	            <li>课程目录</li>
+	        </div>
+	        <div class="mui-col-xs-4">
+	            <li>课程评价</li>
+	        </div>
+    	</div>
+	</div>
+<!-- banner开始 -->
+	<div class="banner">
+		<div class="img">
+			<img src="{$list.fronimage}" alt="">
+		</div>
+		<div class="mui-content operate">
+			<div class="mui-row">
+		        <div class="mui-col-xs-4 num">
+		            <span>{$list.hits}</span>
+		            <span>次学习</span>
+		        </div>
+		        <div class="mui-col-xs-6">
+		            <i class="iconfont icon-weibiao45146"></i>
+		            <span class="collect-num">{$list.collect}</span>
+		        </div>
+		        <div class="mui-col-xs-2 text-c">
+		            <i class="iconfont icon-fenxiang collect-num"></i>
+		        </div>
+	    	</div>
+		</div>
+	</div>
+<!-- banner结束 -->
+<!-- 导航 -->
+	<div class="mui-content nav">
+		<div class="mui-row">
+	        <div class="mui-col-xs-4">
+	           <li class="action">课程介绍</li>
+	        </div>
+	        <div class="mui-col-xs-4">
+	            <li>课程目录</li>
+	        </div>
+	        <div class="mui-col-xs-4">
+	            <li>课程评价</li>
+	        </div>
+    	</div>
+	</div>
+<!-- 课程 -->
+	<div class="class">
+		<!-- 价格 -->
+		<div class="mui-content price">
+			<div class="mui-row">
+		        <div class="mui-col-xs-12 price-num">
+		        	<span class="sale">￥</span><span class="sale">{$list.old}</span>
+		        	<span>限时免费</span>
+		        </div>
+		        <div class="mui-col-xs-12 price-no">
+		        	<span>已更新课程</span><span>{$list.num}</span><span>节</span>
+		        </div>
+		        <div class="mui-col-xs-12 price-no">
+		        	<i class="iconfont icon-gouhao"></i>
+		        	<span>永久回听</span>
+		        </div>
+	    	</div>
+		</div>
+		<!-- 讲师 -->
+		<div class="mui-content lecturer">
+			<div class="mui-row">
+		        <div class="mui-col-xs-12">
+		        	<span>课程讲师</span>
+		        </div>
+		        <div class="mui-col-xs-12 name">
+		        	<img align="middle" src="{$list.avatar}" alt="">
+		        	<span>{$list.teach}</span>
+		        	<span>+ 关注</span>
+		        </div>		   
+	    	</div>
+		</div>
+		<!-- 课程介绍 -->
+		<div class="mui-content introduce">
+			<div class="mui-row">
+		        <div class="mui-col-xs-12 headline">
+		        	<span>课程简介</span>
+		        </div>
+		        <div class="mui-col-xs-12">
+		        	<li>	
+						<p><span>1</span>.课程适用人群:</p>
+						<p>{$list.suit}</p>
+		        	</li>
+		        	<li>	
+						<p><span>2</span>.主要讲解</p>
+						<p>{$list.intro}</p>
+		        	</li>
+		        </div>		   
+	    	</div>
+		</div>
+	</div>
+<!-- 课程介绍结束 -->
+<!-- 课程目录 -->
+	<div class="catalog">
+		{if condition="$num"}
+		{volist name="num" id="v" key="ke"}
+		{if condition="$ke<=2"}
+		<a href="play?id={$id}&d_id={$v.id}">
+		<div class="mui-content cat-list">
+			<div class="mui-row">
+		        <div class="mui-col-xs-4">
+		           <img class="cat-img" src="{$v.baimage}" alt="">
+		        </div>
+		        <div class="mui-col-xs-6">
+		            <p>{$v.name}</p>
+		            <p>
+		            	<span>{$v.learntimes}</span><span>次学习</span>
+		            </p>
+		            <p>
+		            	<span>{$v.creat_time}</span>
+		            </p>
+		        </div>
+		        <div class="mui-col-xs-2">		        	
+		            可试听		            		        	
+		        </div>
+	    	</div>
+		</div>
+		</a>
+		{else/}
+		<div class="mui-content cat-list">
+			<div class="mui-row">
+		        <div class="mui-col-xs-4">
+		           <img class="cat-img" src="{$v.baimage}" alt="">
+		        </div>
+		        <div class="mui-col-xs-6">
+		            <p>{$v.name}</p>
+		            <p>
+		            	<span>{$v.learntimes}</span><span>次学习</span>
+		            </p>
+		            <p>
+		            	<span>{$v.creat_time}</span>
+		            </p>
+		        </div>
+		        <div class="mui-col-xs-2">		        			            
+		            <i class="iconfont icon-iconset0114"></i>		        	
+		        </div>
+	    	</div>
+		</div>
+		{/if}
+		{/volist}
+		{else/}
+		<div style="text-align: center;padding:15px 0;">
+			该系列还没有课程，敬请期待！
+		</div>
+		{/if}
+		{if condition="$count==5"}
+	    <div class="more" page="1" value="{$id}" kind="0">加载更多</div>
+	    {/if}
+	</div>
+<!-- 课程目录结束 -->
+<!-- 课程评论 -->
+	<div class="comment">
+		<div class="comment-num">
+			{if condition="$cnum>99"}
+			<span>课程评价 (<span class="c-num"> 99+</span>)</span>	
+			{else/}
+			<span>课程评价 (<span class="c-num"> {$cnum}</span>)</span>	
+			{/if}				
+		</div>
+		{if condition="$collect"}
+		{volist name="collect" id="va"}
+		<div class="mui-content">
+			<div class="mui-row">
+		        <div class="mui-col-xs-3 c-img">
+		           <img src="{$va.name.avatar}" alt="">
+		        </div>
+		        <div class="mui-col-xs-9">
+		            <p>{$va.name.name}</p>
+		            <p>
+		            	<span>{$va.create_time}</span>
+		            </p>
+		            <p>{$va.cont}</p>		           
+		        </div>		     
+	    	</div>
+		</div>
+		{/volist}
+		{else/}
+		<div style="text-align: center;padding:15px 0;">
+			沙发还在，赶紧的！
+		</div>
+		{/if}
+		{if condition="$coun==5"}
+	    <div class="more" page="1" value="{$id}" kind="1">加载更多</div>
+	    {/if}
+	</div>
+<!-- 课程评论结束 -->
+<!-- 底部 -->
+	<footer class="mui-content" value="0">
+		<div class="mui-row">
+	        <div class="mui-col-xs-12">
+	        	立即学习
+	        </div>	      	   
+	    </div>
+	</footer>
+<!-- 支付 -->
+	<div id="pay">
+		<div id="pay-sure">
+			<div>
+				<span>恭喜你，付费成功，可学习全部课程！</span>
+				<p></p>
+			</div>
+		</div>
+		<ul class="sure">
+			<li class="price-now">
+				<span>系列价格</span>
+				<span>{$list.old}</span>
+				<span>￥</span>				
+			</li>
+			<li class="price-n">
+				<span>优惠券抵价</span>
+				<select name="price" id="price">
+					<option value="-￥0.00">-￥0.00</option>
+					<option value="-￥0.00">-￥0.00</option>
+					<option value="-￥0.00">-￥0.00</option>
+				</select>
+			</li>
+			<li class="pay-true">
+				<span>还需支付</span>
+				<span id="pa">0.00</span>
+				<span>￥</span>
+			</li>
+			<li>
+				<p class="pay-way">
+					<span>支付</span>
+					<span id="should">￥0.00</span>
+				</p>
+				<p class="cancel">取消</p>
+			</li>
+		</ul>
+	</div>
+</body>
+<script type="text/javascript" src="{$Think.PUBLIC_FRONT}/js/money/details.js"></script>
+<script type="text/javascript" src="{$Think.PUBLIC_FRONT}/js/common/comment.js"></script>
+<script type="text/javascript" src="{$Think.PUBLIC_FRONT}/js/common/layui.all.js"></script>
+</html>

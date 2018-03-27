@@ -1,0 +1,96 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label for="c-name" class="control-label col-xs-12 col-sm-2">{:__('Name')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-name" data-rule="required" class="form-control" name="row[name]" type="text" value="{$row.name}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-avatar" class="control-label col-xs-12 col-sm-2">{:__('Avatar')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="input-group">
+                <input id="c-avatar" data-rule="required" class="form-control" size="50" name="row[avatar]" type="text" value="{$row.avatar}">
+                <div class="input-group-addon no-border no-padding">
+                    <span><button type="button" id="plupload-avatar" class="btn btn-danger plupload" data-input-id="c-avatar" data-mimetype="image/gif,image/jpeg,image/png,image/jpg,image/bmp" data-multiple="false" data-preview-id="p-avatar"><i class="fa fa-upload"></i> {:__('Upload')}</button></span>
+                    <span><button type="button" id="fachoose-avatar" class="btn btn-primary fachoose" data-input-id="c-avatar" data-mimetype="image/*" data-multiple="false"><i class="fa fa-list"></i> {:__('Choose')}</button></span>
+                </div>
+                <span class="msg-box n-right" for="c-avatar"></span>
+            </div>
+            <ul class="row list-inline plupload-preview" id="p-avatar"></ul>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-ID_num" class="control-label col-xs-12 col-sm-2">{:__('Id_num')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-ID_num" data-rule="required" class="form-control" name="row[ID_num]" type="text" value="{$row.ID_num}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-see_num" class="control-label col-xs-12 col-sm-2">{:__('See_num')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-see_num" data-rule="required" class="form-control" name="row[see_num]" type="number" value="{$row.see_num}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-type" class="control-label col-xs-12 col-sm-2">{:__('Type')}:</label>
+        <div class="col-xs-12 col-sm-8">
+                        
+            <select  id="c-type" data-rule="required" class="form-control selectpicker" name="row[type]">
+                {foreach name="typeList" item="vo"}
+                    <option value="{$key}" {in name="key" value="$row.type"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-introcontent" class="control-label col-xs-12 col-sm-2">{:__('Introcontent')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <textarea id="c-introcontent" data-rule="required" class="form-control editor" rows="5" name="row[introcontent]" cols="50">{$row.introcontent}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-mark" class="control-label col-xs-12 col-sm-2">{:__('Mark')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-mark" data-rule="required" class="form-control" name="row[mark]" type="text" value="{$row.mark}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-backimages" class="control-label col-xs-12 col-sm-2">{:__('Backimages')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <textarea id="c-backimages" data-rule="required" class="form-control " rows="5" name="row[backimages]" cols="50">{$row.backimages}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-creat_time" class="control-label col-xs-12 col-sm-2">{:__('Creat_time')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-creat_time" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[creat_time]" type="text" value="{$row.creat_time|datetime}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-del_time" class="control-label col-xs-12 col-sm-2">{:__('Del_time')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-del_time" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[del_time]" type="text" value="{$row.del_time|datetime}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-status" class="control-label col-xs-12 col-sm-2">{:__('Status')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            
+            <div class="radio">
+            {foreach name="statusList" item="vo"}
+            <label for="row[status]-{$key}"><input id="row[status]-{$key}" name="row[status]" type="radio" value="{$key}" {in name="key" value="$row.status"}checked{/in} /> {$vo}</label> 
+            {/foreach}
+            </div>
+
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

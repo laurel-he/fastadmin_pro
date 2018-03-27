@@ -1,0 +1,90 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label for="c-name" class="control-label col-xs-12 col-sm-2">{:__('Name')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-name" class="form-control" name="row[name]" type="text" value="{$row.name}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-create_time" class="control-label col-xs-12 col-sm-2">{:__('Create_time')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-create_time" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[create_time]" type="text" value="{$row.create_time|datetime}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-u_id" class="control-label col-xs-12 col-sm-2">{:__('U_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-u_id" data-rule="required" data-source="u/index" class="form-control selectpage" name="row[u_id]" type="text" value="{$row.u_id}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-del_time" class="control-label col-xs-12 col-sm-2">{:__('Del_time')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-del_time" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[del_time]" type="text" value="{$row.del_time|datetime}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-intro" class="control-label col-xs-12 col-sm-2">{:__('Intro')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <textarea id="c-intro" class="form-control " rows="5" name="row[intro]" cols="50">{$row.intro}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-fronimage" class="control-label col-xs-12 col-sm-2">{:__('Fronimage')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="input-group">
+                <input id="c-fronimage" class="form-control" size="50" name="row[fronimage]" type="text" value="{$row.fronimage}">
+                <div class="input-group-addon no-border no-padding">
+                    <span><button type="button" id="plupload-fronimage" class="btn btn-danger plupload" data-input-id="c-fronimage" data-mimetype="image/gif,image/jpeg,image/png,image/jpg,image/bmp" data-multiple="false" data-preview-id="p-fronimage"><i class="fa fa-upload"></i> {:__('Upload')}</button></span>
+                    <span><button type="button" id="fachoose-fronimage" class="btn btn-primary fachoose" data-input-id="c-fronimage" data-mimetype="image/*" data-multiple="false"><i class="fa fa-list"></i> {:__('Choose')}</button></span>
+                </div>
+                <span class="msg-box n-right" for="c-fronimage"></span>
+            </div>
+            <ul class="row list-inline plupload-preview" id="p-fronimage"></ul>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-suit" class="control-label col-xs-12 col-sm-2">{:__('Suit')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-suit" class="form-control" name="row[suit]" type="text" value="{$row.suit}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-luimages" class="control-label col-xs-12 col-sm-2">{:__('Luimages')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <textarea id="c-luimages" class="form-control " rows="5" name="row[luimages]" cols="50">{$row.luimages}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-board_id" class="control-label col-xs-12 col-sm-2">{:__('Board_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-board_id" data-rule="required" data-source="board/index" class="form-control selectpage" name="row[board_id]" type="text" value="{$row.board_id}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-type" class="control-label col-xs-12 col-sm-2">{:__('Type')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-type" data-rule="required" class="form-control" name="row[type]" type="number" value="{$row.type}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-free" class="control-label col-xs-12 col-sm-2">{:__('Free')}:</label>
+        <div class="col-xs-12 col-sm-8">
+                        
+            <select  id="c-free" data-rule="required" class="form-control selectpicker" name="row[free]">
+                {foreach name="freeList" item="vo"}
+                    <option value="{$key}" {in name="key" value="$row.free"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>
